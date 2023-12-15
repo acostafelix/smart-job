@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import com.cl.smartjob.controller.dto.User;
 import com.cl.smartjob.error.ContractInvalidException;
-import com.cl.smartjob.validators.ValidatorContract;
 
 
 class ValidatorContractTest {
-	
 	
 	@BeforeEach
 	public void before() {
@@ -24,17 +22,22 @@ class ValidatorContractTest {
 		User user = new User();
 		user.setEmail("hun");
 		user.setPassword("hunter2$");
-		assertThrows(ContractInvalidException.class, () -> ValidatorContract.validateRequest(user));
+		assertThrows(ContractInvalidException.class, () -> ValidatorContract.validateRequest(user,""));
 	    
 	}
 	
 	@Test
 	void testValidatePasswordRequest() {
 		
+		String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+		
 		User user = new User();
 		user.setEmail("hunter2@gmail.com");
 		user.setPassword("hunter2$qwklsuhbsjhsdfgfd");
-		assertThrows(ContractInvalidException.class, () -> ValidatorContract.validateRequest(user));
+		assertThrows(ContractInvalidException.class, () -> ValidatorContract.validateRequest(user,regex));
 		
 	}
 

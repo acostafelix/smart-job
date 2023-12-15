@@ -12,9 +12,9 @@ import com.cl.smartjob.error.ContractInvalidException;
 @Component
 public class ValidatorContract {
 	
-	public static void validateRequest(User user) throws ContractInvalidException {
+	public static void validateRequest(User user, String regex) throws ContractInvalidException {
 	    validateEmail(user.getEmail());
-	    validatePassword(user.getPassword());
+	    validatePassword(user.getPassword(),regex);
 	}
 	
 	private static void validateEmail(String mail) throws ContractInvalidException {
@@ -28,13 +28,9 @@ public class ValidatorContract {
 	    }
 	}
 	
-	private static void validatePassword(String password) throws ContractInvalidException {
+	private static void validatePassword(String password, String regexPassword) throws ContractInvalidException {
 
-		String regex = "^(?=.*[0-9])"
-                + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=.*[@#$%^&+=])"
-                + "(?=\\S+$).{8,20}$";
-	    Pattern pattern = Pattern.compile(regex);
+	    Pattern pattern = Pattern.compile(regexPassword);
 	    Matcher matcher = pattern.matcher(password);
 	    
 	    if(!matcher.matches()) {

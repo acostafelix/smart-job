@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.util.ReflectionTestUtils;
 
+import com.cl.smartjob.config.ApplicationProperties;
 import com.cl.smartjob.controller.dto.User;
 import com.cl.smartjob.controller.dto.response.UserResponse;
 import com.cl.smartjob.error.ContractInvalidException;
@@ -26,10 +28,17 @@ class UserControllerTest {
 	@Mock
 	UserService userService;
 
+	@Mock
+	private ApplicationProperties applicationProperties = new ApplicationProperties();
+
 	private User user;
 
 	@BeforeEach
 	public void before() {
+
+		applicationProperties = new ApplicationProperties();
+		applicationProperties.setRegxPassword("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$");
+		ReflectionTestUtils.setField(controller, "properties", applicationProperties);
 
 		user = new User();
 		user.setEmail("felixacosta@gmail.com");
