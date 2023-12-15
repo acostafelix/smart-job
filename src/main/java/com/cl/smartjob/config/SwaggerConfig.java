@@ -21,7 +21,7 @@ public class SwaggerConfig {
 	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.example.ruleengine.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.cl.smartjob.controller"))
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(getApiInfo())

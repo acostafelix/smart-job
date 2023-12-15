@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cl.smartjob.config.ApplicationProperties;
 import com.cl.smartjob.controller.dto.User;
 import com.cl.smartjob.controller.dto.response.UserResponse;
 import com.cl.smartjob.error.ContractInvalidException;
@@ -23,10 +24,14 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+    private ApplicationProperties properties;
+
+	
 	@PostMapping(value="/usuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserResponse> insertUser(@RequestBody User user) throws UserException, ContractInvalidException {
 		
-		ValidatorContract.validateRequest(user);
+		ValidatorContract.validateRequest(user, properties.getRegxPassword());
 		return new ResponseEntity<>(userService.processUser(user), HttpStatus.CREATED);
 
 	}
