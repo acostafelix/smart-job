@@ -52,7 +52,7 @@ Al levantar el servicio queda disponible la base de datos H2 ubicada en el sigui
 http://localhost:8081/h2-console/
 ```
 
-Es una base de datos configurada en memoria llamada mydb, las tablas que utiliza el servicio estan definidas en el archivo data.sql ubicado en el paquete resources.
+Es una base de datos configurada en memoria llamada mydb, los datos de conexion se encuentran en el archivo application.yml dentro de la carpeta resorces las tablas que utiliza el servicio estan definidas en el archivo data.sql ubicado en el paquete resources.
 
 Tambien esta disponible la documentacion del servicio a traves de swagger, se puede acceder en el siguiente endpoint:
 
